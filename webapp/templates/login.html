@@ -1,0 +1,61 @@
+{% extends 'default.html' %}
+
+{% block content %}
+<h1 class="text-danger">Donor Login</h1>
+<br>
+<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <input class="form-control" type="email" placeholder="Donor Email" id="email">
+        <br>
+        <button class="btn btn-success" onclick="send()">Send OTP</button>
+        &nbsp;&nbsp;&nbsp;
+            <b class="text-danger" id="otpresult"></b>
+        <br><br>
+
+        <form action="/bloodbank/login" method="post">
+            {% csrf_token %}
+            <input name="otp" class="form-control" type="password" placeholder="OTP" required>
+            <br>
+            <button class="btn btn-danger" type="submit">Login Donor</button>
+            
+            <br><br>
+            </form>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+</div>
+
+<script>
+        function send()
+        {
+            document.getElementById("otpresult").innerHTML = "OTP is Sending  ....... ";
+            var mail = document.getElementById("email").value;
+            
+            // Request Object
+            var req = new XMLHttpRequest();
+            //alert(req.readyState);
+
+            var url = "/bloodbank/sendotp?email="+mail;
+
+            // Object Initialize
+            req.open("GET",url);
+
+            //alert(req.readyState);
+
+            req.onreadystatechange = function()
+            {
+                if(req.readyState==4)
+                {
+                    document.getElementById("otpresult").innerHTML =  req.responseText;
+                }
+            }
+
+            req.send();
+
+
+
+
+        }    
+</script>
+
+{% endblock %}

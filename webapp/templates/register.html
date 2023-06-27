@@ -1,0 +1,49 @@
+{% extends 'default.html' %}
+
+{% block content %}
+
+<h1>Donor Registration</h1>
+
+<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <div class="col-lg-10 col-md-10 col-sm-10">
+            <form action="/bloodbank/savedonor" method="post">
+                {% csrf_token %}
+
+            <input class="form-control" type="text" placeholder="Donor Name" name="name" required>
+            <br>
+            <input class="form-control" type="tel" placeholder="Donor Phone" name="phone">
+            <br>
+            <input class="form-control" type="email" placeholder="Donor Email" name="email" required>
+            <br>
+            <input class="form-control" type="date" placeholder="Donor DOB" name="dob" required>
+            <br>
+            <select name="group" class="form-control" required>
+                <option value=''>Choose Blood Group </option>
+                <option value="1">A+</option>
+                <option value="2">A-</option>
+                <option value="3">B+</option>
+                <option value="4">B-</option>
+                <option value="5">O+</option>
+                <option value="6">O-</option>
+                <option value="7">AB+</option>
+                <option value="8">AB-</option>
+            </select>    
+            <br>
+            <select name="gender" class="form-control" required>
+                <option value=''>Choose Gender </option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>                
+            </select>    
+            <br>
+            <button class="btn btn-danger" type="submit">Save Donor</button>
+            &nbsp;&nbsp;&nbsp;
+            <b class="text-warning">{{msg}}</b>
+            <br><br>
+            </form>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+</div>
+
+{% endblock %}
+
